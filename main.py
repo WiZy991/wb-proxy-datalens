@@ -13,8 +13,14 @@ def home():
 @app.route('/wb/stocks')
 def get_stocks():
     headers = {"Authorization": f"Bearer {WB_TOKEN}"}
-    url = "https://statistics-api.wildberries.ru/api/v1/supplier/stocks"
+    url = f"https://statistics-api.wildberries.ru/api/v1/supplier/sales?dateFrom={date_from}"
     response = requests.get(url, headers=headers)
+
+@app.route('/wb/sales')
+def get_sales():
+    date_from = request.args.get('dateFrom')
+    if not date_from:
+        return jsonify({"error": "Нужно указать параметр ?dateFrom=YYYY-MM-DD"}), 400
     
     if response.ok:
         return jsonify(response.json())
