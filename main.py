@@ -6,8 +6,7 @@ import io
 
 app = Flask(__name__)
 
-# Получаем токен Wildberries из переменной окружения или прописываем вручную
-WB_TOKEN = os.getenv("WB_TOKEN", "eyJhbGciOiJFUzI1NiIsImtpZCI6IjIwMjUwMjE3djEiLCJ0eXAiOiJKV1QifQ.eyJlbnQiOjEsImV4cCI6MTc2MDU3OTM2MCwiaWQiOiIwMTk2M2VkYy04MDg1LTdhMTYtYjllMS1hYmRlNzE2ZWMwZDUiLCJpaWQiOjI3ODY4NjAyLCJvaWQiOjEyMTA4ODYsInMiOjEwNzM3NDE4NTYsInNpZCI6IjgxOWMxZjQ2LTU0ODMtNDc0ZS05ZjM1LTlhZWUxNWM2MTQ1MyIsInQiOmZhbHNlLCJ1aWQiOjI3ODY4NjAyfQ.MbJIqS_lsQmOa00ktQt3FqEMvONJz10ZDQQqAIjGUVJhFnFaHtslV55BWC6fRyKBPzNTwEqlmwHxbD6AXFUcHg")  # <-- сюда можно вставить токен на тест
+WB_TOKEN = os.getenv("WB_TOKEN", "eyJhbGciOiJFUzI1NiIsImtpZCI6IjIwMjUwMjE3djEiLCJ0eXAiOiJKV1QifQ.eyJlbnQiOjEsImV4cCI6MTc2MDU3OTM2MCwiaWQiOiIwMTk2M2VkYy04MDg1LTdhMTYtYjllMS1hYmRlNzE2ZWMwZDUiLCJpaWQiOjI3ODY4NjAyLCJvaWQiOjEyMTA4ODYsInMiOjEwNzM3NDE4NTYsInNpZCI6IjgxOWMxZjQ2LTU0ODMtNDc0ZS05ZjM1LTlhZWUxNWM2MTQ1MyIsInQiOmZhbHNlLCJ1aWQiOjI3ODY4NjAyfQ.MbJIqS_lsQmOa00ktQt3FqEMvONJz10ZDQQqAIjGUVJhFnFaHtslV55BWC6fRyKBPzNTwEqlmwHxbD6AXFUcHg")
 
 @app.route('/')
 def home():
@@ -17,9 +16,9 @@ def home():
 def get_sales_csv():
     date_from = request.args.get('dateFrom')
     if not date_from:
-        return "dateFrom is required (format YYYY-MM-DD)", 400
+        return "dateFrom is required", 400
 
-    headers = {"Authorization": f"Bearer {WB_TOKEN}"}
+    headers = {"Authorization": f"Bearer " + WB_TOKEN}
     url = f"https://statistics-api.wildberries.ru/api/v1/supplier/sales?dateFrom={date_from}"
     response = requests.get(url, headers=headers)
 
